@@ -38,15 +38,17 @@ const START = "#4F8CFF";
 
 function parseRgb(s: string): RGB | null {
   const m = s.match(/(\d+)\s*[,\s]\s*(\d+)\s*[,\s]\s*(\d+)/);
-  if (!m) return null;
-  const nums = [m[1], m[2], m[3]].map(Number);
-  if (nums.some((n) => n < 0 || n > 255)) return null;
-  return { r: nums[0], g: nums[1], b: nums[2] };
+  if (!m || !m[1] || !m[2] || !m[3]) return null;
+  const r = Number(m[1]);
+  const g = Number(m[2]);
+  const b = Number(m[3]);
+  if ([r, g, b].some((n) => n < 0 || n > 255)) return null;
+  return { r, g, b };
 }
 
 function parseHsl(s: string): HSL | null {
   const m = s.match(/(\d+)\s*[,\s]\s*(\d+)\s*[,\s]\s*(\d+)/);
-  if (!m) return null;
+  if (!m || !m[1] || !m[2] || !m[3]) return null;
   const h = Number(m[1]);
   const sat = Number(m[2]);
   const l = Number(m[3]);
